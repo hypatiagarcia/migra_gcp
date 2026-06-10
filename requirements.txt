@@ -1,0 +1,23 @@
+# =============================================================================
+# Dependencias del Proyecto — Migración a la Nube
+# =============================================================================
+#
+# SIMULACIONES (no requieren GCP):
+#   Solo Python 3.8+ estándar, sin dependencias externas.
+#
+# SCRIPTS GCP REALES:
+#   Instalar con: pip install -r requirements.txt
+#
+# =============================================================================
+
+# Google Cloud Platform — SDKs oficiales
+google-cloud-storage>=2.10.0       # Para Cloud Storage (gs://)
+google-cloud-dataproc>=5.4.0       # Para lanzar trabajos en Dataproc
+google-cloud-bigquery>=3.11.0      # Para consultas SQL en BigQuery
+
+# PySpark — Para ejecutar jobs localmente o en Dataproc
+pyspark>=3.4.0
+
+# Utilidades opcionales
+pandas>=2.0.0                      # Análisis de datos local
+pyarrow>=12.0.0                    # Soporte para formato Parquet
