@@ -19,8 +19,22 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
 
-from simulacion_01_onpremise import ClusterOnPremise
-from simulacion_02_gcp import CloudStorage, DataprocCluster, BigQuery
+import importlib.util
+
+def _cargar_modulo(nombre, ruta):
+    spec = importlib.util.spec_from_file_location(nombre, ruta)
+    modulo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modulo)
+    return modulo
+
+_dir = os.path.dirname(__file__)
+mod_onpremise = _cargar_modulo("mod_onpremise", os.path.join(_dir, "01_sistema_onpremise.py"))
+mod_gcp = _cargar_modulo("mod_gcp", os.path.join(_dir, "02_sistema_gcp.py"))
+
+ClusterOnPremise = mod_onpremise.ClusterOnPremise
+CloudStorage = mod_gcp.CloudStorage
+DataprocCluster = mod_gcp.DataprocCluster
+BigQuery = mod_gcp.BigQuery
 
 
 def medir_tiempo(func):

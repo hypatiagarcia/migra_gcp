@@ -111,24 +111,37 @@ def demo_problema_1_falta_de_memoria():
     print("="*60)
 
     cluster = ClusterOnPremise()
+    resultados = {}
 
-    # Primer trabajo: usa casi toda la RAM disponible
+    def lanzar_a():
+        # El trabajo de A retiene 50GB de RAM mientras corre (3 segundos)
+        ok = cluster.ejecutar_trabajo(
+            nombre_trabajo="Entrenamiento Modelo ML - Dataset Clientes",
+            ram_requerida_gb=50,
+            duracion_seg=3
+        )
+        resultados["A"] = ok
+
+    def lanzar_b():
+        # B intenta lanzar su trabajo MIENTRAS A todavía está corriendo
+        time.sleep(0.5)
+        print("\n→ Analista B lanza otro trabajo mientras A sigue corriendo:")
+        ok = cluster.ejecutar_trabajo(
+            nombre_trabajo="Transformación Datos - Logs de Red",
+            ram_requerida_gb=25,   # Solo quedan 14GB libres → va a fallar
+            duracion_seg=1
+        )
+        resultados["B"] = ok
+
     print("\n→ Analista A lanza un trabajo de entrenamiento de modelo:")
-    cluster.ejecutar_trabajo(
-        nombre_trabajo="Entrenamiento Modelo ML - Dataset Clientes",
-        ram_requerida_gb=50,
-        duracion_seg=1
-    )
+    hilo_a = threading.Thread(target=lanzar_a)
+    hilo_b = threading.Thread(target=lanzar_b)
+    hilo_a.start()
+    hilo_b.start()
+    hilo_a.join()
+    hilo_b.join()
 
-    # Segundo trabajo: intenta usar más RAM de la que queda
-    print("\n→ Analista B lanza otro trabajo de transformación de datos:")
-    exito = cluster.ejecutar_trabajo(
-        nombre_trabajo="Transformación Datos - Logs de Red",
-        ram_requerida_gb=25,   # Solo quedan 14GB libres → va a fallar
-        duracion_seg=1
-    )
-
-    if not exito:
+    if not resultados.get("B", True):
         print("\n  💡 CONCLUSIÓN: El analista B perdió horas de trabajo.")
         print("     Al día siguiente deberá reiniciar el proceso desde cero.")
 

@@ -19,6 +19,9 @@ El proyecto aplica metodologías de Análisis de Sistemas para identificar probl
 ```
 📦 proyecto-migracion-nube/
 ├── 📄 README.md                        ← Este archivo
+├── 📁 documentacion/
+│   ├── Trabajo_Practico_Migracion_Nube.docx  ← Entrega formal (Word) según rúbrica
+│   └── capturas/                       ← Capturas de pantalla usadas como evidencia
 ├── 📁 docs/
 │   ├── 01_descripcion_problema.md      ← Relevamiento y análisis del problema
 │   ├── 02_actores_y_requerimientos.md  ← Identificación de actores y requerimientos
@@ -30,9 +33,15 @@ El proyecto aplica metodologías de Análisis de Sistemas para identificar probl
 ├── 📁 propuesta/
 │   ├── comparativa_costos.md           ← Análisis de costos on-premise vs nube
 │   └── plan_migracion.md               ← Plan de migración por fases
+├── 📁 codigo/
+│   ├── simulacion/                     ← Simulaciones en Python (sin dependencias)
+│   ├── gcp_scripts/                    ← Scripts reales de Google Cloud Platform
+│   └── data/                           ← Generador de datos de ejemplo
 └── 📁 presentacion/
     └── resumen_ejecutivo.md            ← Resumen para la gerencia
 ```
+
+> 📌 **Para la entrega de la materia:** el archivo `documentacion/Trabajo_Practico_Migracion_Nube.docx` es el documento principal a entregar, ya que está armado siguiendo la rúbrica de evaluación de la cátedra (portada, recolección de datos, capturas de pantalla, conclusiones, etc.). El resto del repositorio es el material de respaldo (código y documentación técnica detallada) que sustenta ese informe.
 
 ---
 
